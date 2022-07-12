@@ -15,11 +15,10 @@ namespace Cipher_Solver
             for (int i = 0; i < characters.Length; i++)
             {
                 int Index = Array.IndexOf(alpha, characters[i]);
-                if (Index + shift >= alpha.Length)
+                if (Index + shift >= alpha.Length) // prevents going out of the range of the alphabet array
                 {
-                    int distance = alpha.Length - Index;
-                    int sub = Index + shift - alpha.Length;
-                    characters[i] = alpha[sub];
+                    int sub = Index + shift - alpha.Length; // goes back to the start of the alphabet and finds the index value of the original letter index + shift if shift + index exceeds 26
+                    characters[i] = alpha[sub]; // Updates the array value to the new encrypted character
                 }
                 else
                 {
