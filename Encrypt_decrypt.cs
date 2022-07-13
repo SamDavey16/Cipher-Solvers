@@ -27,5 +27,30 @@ namespace Cipher_Solver
             }
             Console.WriteLine(characters);
         }
+
+        public void Caeser_Decrypt()
+        {
+            char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+            Console.WriteLine("Enter text to be decrypted: ");
+            string txt = Console.ReadLine();
+            char[] characters = txt.ToCharArray();
+            for (int shift = 0; shift < 25; shift++)
+            {
+                for (int i = 0; i < characters.Length; i++)
+                {
+                    int Index = Array.IndexOf(alpha, characters[i]);
+                    if (Index + shift >= alpha.Length) 
+                    {
+                        int sub = Index + shift - alpha.Length;
+                        characters[i] = alpha[sub]; 
+                    }
+                    else
+                    {
+                        characters[i] = alpha[Index + shift];
+                    }
+                    Console.WriteLine(characters);
+                }
+            }
+        }
     }
 }
