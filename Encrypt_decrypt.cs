@@ -9,7 +9,7 @@ namespace Cipher_Solver
         {
             char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
             Console.WriteLine("Enter text to be encrypted: ");
-            string txt = Console.ReadLine();
+            string txt = Console.ReadLine().ToUpper();
             char[] characters = txt.ToCharArray();
             Console.WriteLine("Enter shift: ");
             int shift = Int32.Parse(Console.ReadLine());
@@ -33,7 +33,7 @@ namespace Cipher_Solver
         {
             char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
             Console.WriteLine("Enter text to be decrypted: ");
-            string txt = Console.ReadLine();
+            string txt = Console.ReadLine().ToUpper();
             char[] characters = txt.ToCharArray();
             List<char> output = new List<char>();
             for (int shift = 0; shift < 25; shift++)
