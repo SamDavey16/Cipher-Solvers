@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Cipher_Solver
 {
@@ -34,6 +35,7 @@ namespace Cipher_Solver
             Console.WriteLine("Enter text to be decrypted: ");
             string txt = Console.ReadLine();
             char[] characters = txt.ToCharArray();
+            List<char> output = new List<char>();
             for (int shift = 0; shift < 25; shift++)
             {
                 for (int i = 0; i < characters.Length; i++)
@@ -42,13 +44,30 @@ namespace Cipher_Solver
                     if (Index + shift >= alpha.Length) 
                     {
                         int sub = Index + shift - alpha.Length;
-                        characters[i] = alpha[sub]; 
+                        output.Add(alpha[sub]);
                     }
                     else
                     {
-                        characters[i] = alpha[Index + shift];
+                        output.Add(alpha[Index + shift]);
                     }
-                    Console.WriteLine(characters);
+                }
+                string s = string.Concat(output);
+                Console.WriteLine(s);
+                output.Clear();
+            }
+        }
+
+        public void Substitution_decrypt()
+        {
+            char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+            Console.WriteLine("Enter text to be decrypted: ");
+            string txt = Console.ReadLine().ToUpper();
+            char[] characters = txt.ToCharArray();
+            for (int x = 0; x < characters.Length; x++)
+            {
+                for (int i = 0; i < alpha.Length; i++)
+                {
+                    Console.WriteLine("magic happens");
                 }
             }
         }
