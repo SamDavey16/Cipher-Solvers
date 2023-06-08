@@ -89,6 +89,7 @@ namespace Cipher_Solver
             BigInteger d = D(p, q, e);
             Console.WriteLine("D is: " + d);
             Console.WriteLine("Public Key is: (" + phi + ", " + e + ")");
+            Console.WriteLine("Private Key is: (" + phi + ", " + d + ")");
         }
 
         public BigInteger GCD(BigInteger a, BigInteger b)
