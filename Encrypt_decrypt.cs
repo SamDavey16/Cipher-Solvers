@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Cipher_Solver
 {
@@ -70,6 +74,76 @@ namespace Cipher_Solver
                     Console.WriteLine("magic happens");
                 }
             }
+        }
+
+        public void Asymetric_encryption()
+        {
+            BigInteger p = 61;
+            BigInteger q = 53;
+            BigInteger phi = p * q;
+            BigInteger g = GCD(p, q);
+            Console.WriteLine("GCD(" + p + " , " + q
+                              + ") = " + g);
+            BigInteger e = E(p, q);
+            Console.WriteLine("E is: " + e);
+            BigInteger d = D(p, q, e);
+            Console.WriteLine("D is: " + d);
+            Console.WriteLine("Public Key is: (" + phi + ", " + e + ")");
+        }
+
+        public BigInteger GCD(BigInteger a, BigInteger b)
+        {
+            while (b != 0)
+            {
+                BigInteger remainder = a % b;
+                a = b;
+                b = remainder; 
+            }
+
+            return a;
+        }
+
+        public BigInteger E(BigInteger a, BigInteger b)
+        {
+            BigInteger phi = (a - 1) * (b - 1);
+            BigInteger e = 65537;
+
+            while(GCD(e, phi) != 1)
+            {
+                e++;
+            }
+
+            return e;
+        }
+
+        public static BigInteger EGCD(BigInteger a, BigInteger b, out BigInteger x, out BigInteger y)
+        {
+            if (a == 0)
+            {
+                x = 0;
+                y = 1;
+                return b;
+            }
+
+            BigInteger x1, y1;
+            BigInteger gcd = EGCD(b % a, a, out x1, out y1);
+
+            x = y1 - (b / a) * x1;
+            y = x1;
+
+            return gcd;
+        }
+
+        public static BigInteger D(BigInteger p, BigInteger q, BigInteger e)
+        {
+            BigInteger phi = (p - 1) * (q - 1);
+            BigInteger d, y;
+            EGCD(e, phi, out d, out y);
+
+            // Ensure d is positive
+            d = (d % phi + phi) % phi;
+
+            return d;
         }
     }
 }

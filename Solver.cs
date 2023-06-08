@@ -11,7 +11,7 @@ namespace Running
             while (finished == false)
             {
                 Solvers s = new Solvers();
-                Console.WriteLine("Would you like to encrypt (Caeser) or decrypt (Caeser)? ");
+                Console.WriteLine("Would you like to encrypt (Caeser), decrypt (Caeser) or run the RSA algorithm? ");
                 string answer = Console.ReadLine().ToLower();
                 if (answer.Contains("encrypt") == true)
                 {
@@ -21,6 +21,11 @@ namespace Running
                 else if (answer.Contains("decrypt") == true && answer.Contains("caeser") == true)
                 {
                     s.Caeser_Decrypt();
+                    finished = true;
+                }
+                else if (answer.Contains("rsa") == true)
+                {
+                    s.Asymetric_encryption();
                     finished = true;
                 }
                 else
