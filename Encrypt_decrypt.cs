@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 
 namespace Cipher_Solver
 {
@@ -82,14 +84,31 @@ namespace Cipher_Solver
             BigInteger q = 53;
             BigInteger phi = p * q;
             BigInteger g = GCD(p, q);
-            Console.WriteLine("GCD(" + p + " , " + q
-                              + ") = " + g);
+            Console.WriteLine("GCD(" + p + " , " + q + ") = " + g);
             BigInteger e = E(p, q);
             Console.WriteLine("E is: " + e);
             BigInteger d = D(p, q, e);
             Console.WriteLine("D is: " + d);
             Console.WriteLine("Public Key is: (" + phi + ", " + e + ")");
             Console.WriteLine("Private Key is: (" + phi + ", " + d + ")");
+            UserEntry(p, q, phi);
+        }
+
+        public void UserEntry(BigInteger p, BigInteger q, BigInteger pq)
+        {
+            BigInteger e = E(p, q);
+            Console.WriteLine("Enter text to be encrypted: ");
+            string txt = Console.ReadLine();
+            byte[] asciiBytes = Encoding.ASCII.GetBytes(txt);
+            List<string> words = new List<string>();
+            foreach (var character in asciiBytes)
+            {
+                BigInteger i = BigInteger.Pow(character, (int)e) % pq;
+                string result = i.ToString("X");
+                words.Add(result);
+            }
+            string hex = string.Concat(words);
+            Console.WriteLine("Encrypted text: " + hex);
         }
 
         public BigInteger GCD(BigInteger a, BigInteger b)
